@@ -9,7 +9,7 @@ const app = express();
 const router = express.Router();
 
 const DIR = './uploads';
- 
+
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, DIR);
@@ -34,6 +34,20 @@ app.use(function (req, res, next) {
 app.get('/api', function (req, res) {
   res.end('file upload example');
 });
+
+app.get('/api/files', function(req, res) {
+  fs.readdir(DIR, function(err, files) {
+    res.setHeader('Content-Type', 'application/json');
+    console.log(files);
+	video_files = [];
+	for (var i=0; i<files.length; i++){
+		video_files.push({'id':i, 'name': files[i]});
+	}
+	console.log(video_files);
+    res.send(JSON.stringify(video_files));
+  });
+  
+})
  
 app.post('/api/upload',upload.single('video-file'), function (req, res) {
     if (!req.file) {
