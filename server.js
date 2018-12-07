@@ -15,7 +15,7 @@ let storage = multer.diskStorage({
       cb(null, DIR);
     },
     filename: (req, file, cb) => {
-      cb(null, file.fieldname + '-' + Date.now() + '.' + path.extname(file.originalname));
+      cb(null, file.originalname);
     }
 });
 let upload = multer({storage: storage});
@@ -38,7 +38,6 @@ app.get('/api', function (req, res) {
 app.get('/api/files', function(req, res) {
   fs.readdir(DIR, function(err, files) {
     res.setHeader('Content-Type', 'application/json');
-    console.log(files);
 	video_files = [];
 	for (var i=0; i<files.length; i++){
 		video_files.push({'id':i, 'name': files[i]});
