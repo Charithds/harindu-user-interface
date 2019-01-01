@@ -42,6 +42,7 @@ app.get('/api/files', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     video_files = [];
 
+    var j = 0;
     for (var i=0; i<files.length; i++){
       var file_name = files[i];
       if(file_name.endsWith(".mp4") || file_name.endsWith(".webm")){
@@ -50,7 +51,7 @@ app.get('/api/files', function(req, res) {
         if(fs.existsSync(sub_file)){
           content = fs.readFileSync(DIR+"/"+file_name.substr(0, file_name.lastIndexOf(".")) + ".srt", "utf8");
         }
-        video_files.push({'id':i, 'name': files[i], 'content':content});
+        video_files.push({'id':j++, 'name': files[i], 'content':content});
       }
     }
     console.log(video_files);
@@ -75,7 +76,7 @@ app.post('/api/upload',upload.single('video-file'), function (req, res) {
       }
 });
  
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
  
 app.listen(PORT, function () {
   console.log('Node.js server is running on port ' + PORT);
