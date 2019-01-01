@@ -45,7 +45,11 @@ app.get('/api/files', function(req, res) {
     for (var i=0; i<files.length; i++){
       var file_name = files[i];
       if(file_name.endsWith(".mp4") || file_name.endsWith(".webm")){
-        var content = fs.readFileSync(DIR+"/"+file_name.substr(0, file_name.lastIndexOf(".")) + ".srt", "utf8");
+        var sub_file = DIR+"/"+file_name.substr(0, file_name.lastIndexOf(".")) + ".srt";
+        var content = "";
+        if(fs.existsSync(sub_file)){
+          content = fs.readFileSync(DIR+"/"+file_name.substr(0, file_name.lastIndexOf(".")) + ".srt", "utf8");
+        }
         video_files.push({'id':i, 'name': files[i], 'content':content});
       }
     }
