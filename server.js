@@ -84,7 +84,10 @@ app.listen(PORT, function () {
 
 // video get
 app.get('/video', function(req, res) {
-  const path = 'assets/Family.Guy.S15E01.The.Boys.in.the.Band.720p.WEB-DL.x264.AAC.mp4'
+  // const path = 'assets/Family.Guy.S15E01.The.Boys.in.the.Band.720p.WEB-DL.x264.AAC.mp4'
+
+  // Changes
+  const path = 'uploads/RARBG.mp4'
   const stat = fs.statSync(path)
   const fileSize = stat.size
   const range = req.headers.range
